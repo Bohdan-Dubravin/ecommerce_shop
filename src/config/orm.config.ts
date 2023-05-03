@@ -1,5 +1,6 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { User } from '../entities/User';
 
 export default registerAs(
   'orm.config',
@@ -14,7 +15,7 @@ export default registerAs(
 
     // database: 'ecommerse',
 
-    entities: [],
+    entities: [User],
     synchronize: true,
     dropSchema: Boolean(parseInt(process.env.DB_DROP_SCHEMA)),
   }),
