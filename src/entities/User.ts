@@ -1,6 +1,7 @@
 import { Expose } from 'class-transformer';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
@@ -8,8 +9,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
-@ObjectType()
+@Entity({ name: 'users' })
 export class User {
   constructor(partial?: Partial<User>) {
     Object.assign(this, partial);
@@ -17,26 +17,17 @@ export class User {
 
   @PrimaryGeneratedColumn('uuid')
   @Expose()
-  @Field(() => Int)
   id: number;
 
   @Column({ unique: true })
   @Expose()
-  @Field()
   email: string;
 
   @Column()
   password: string;
 
-  @Column()
-  @Expose()
-  @Field()
-  firstName: string;
-
-  @Column()
-  @Expose()
-  @Field()
-  lastName: string;
+  @CreateDateColumn()
+  created_at: Date;
 
   @OneToOne(() => Profile)
   @JoinColumn()
