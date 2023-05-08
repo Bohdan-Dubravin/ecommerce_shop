@@ -17,7 +17,7 @@ export class User {
 
   @PrimaryGeneratedColumn('uuid')
   @Expose()
-  id: number;
+  id: string;
 
   @Column({ unique: true })
   @Expose()
