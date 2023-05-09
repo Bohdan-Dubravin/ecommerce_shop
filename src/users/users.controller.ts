@@ -8,9 +8,10 @@ import {
   Delete,
   HttpCode,
 } from '@nestjs/common';
-import { CreateUserDto } from './dto/create.user.dto';
+import { CreateUserDto } from './dto/createUser.dto';
 import { UsersService } from './users.service';
-import { UpdateUserDto } from './dto/update.user.dto';
+import { UpdateUserDto } from './dto/updateUser.dto';
+import { CreateUserProfileDto } from './dto/createuUserProfile.dto';
 
 @Controller('users')
 export class UsersController {
@@ -35,5 +36,13 @@ export class UsersController {
   @HttpCode(200)
   deleteUserById(@Param('id') userId: string) {
     return this.userService.deleteUser(userId);
+  }
+
+  @Post('profile/:id')
+  createUserProfile(
+    @Param('id') userId: string,
+    @Body() userProfileDto: CreateUserProfileDto,
+  ) {
+    return this.userService.createUserProfile(userId, userProfileDto);
   }
 }

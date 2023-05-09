@@ -1,26 +1,19 @@
-import { Expose } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { ProfileUser } from './ProfileUser';
 
 @Entity({ name: 'users' })
 export class User {
-  constructor(partial?: Partial<User>) {
-    Object.assign(this, partial);
-  }
-
   @PrimaryGeneratedColumn('uuid')
-  @Expose()
   id: string;
 
   @Column({ unique: true })
-  @Expose()
   email: string;
 
   @Column()
@@ -29,15 +22,7 @@ export class User {
   @CreateDateColumn()
   created_at: Date;
 
-  @OneToOne(() => Profile)
+  @OneToOne(() => ProfileUser)
   @JoinColumn()
-  @Expose()
-  profile: Profile;
-
-  @OneToMany(() => Event, (event) => event.organizer)
-  @Expose()
-  organized: Event[];
-
-  @OneToMany(() => Attendee, (attendee) => attendee.user)
-  attended: Attendee[];
+  profile: ProfileUser;
 }
