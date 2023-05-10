@@ -25,5 +25,5 @@ export class Order {
   created_at: Date;
 
   @ManyToOne(() => User, (user) => user.orders)
-  user: User
+  user: User;
 }

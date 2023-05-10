@@ -1,7 +1,10 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { User } from '../entities/User';
-import { ProfileUser } from 'src/entities/ProfileUser';
+import { ProfileUser } from '../entities/ProfileUser';
+import { Order } from '../entities/Order';
+import { Category } from 'src/entities/Category';
+import { Product } from 'src/entities/Product';
 
 export default registerAs(
   'orm.config',
@@ -16,7 +19,7 @@ export default registerAs(
 
     // database: 'ecommerse',
 
-    entities: [User, ProfileUser],
+    entities: [User, ProfileUser, Order, Category, Product],
     synchronize: true,
     dropSchema: Boolean(parseInt(process.env.DB_DROP_SCHEMA)),
   }),
