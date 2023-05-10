@@ -3,20 +3,20 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  OneToMany,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ProfileUser } from './ProfileUser';
-import { Order } from './Order';
+import { User } from './User';
 
-@Entity({ name: 'users' })
-export class User {
+@Entity({ name: 'orders' })
+export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true })
-  email: string;
+  @Column()
+  status: string;
 
   @Column()
   password: string;
@@ -24,10 +24,6 @@ export class User {
   @CreateDateColumn()
   created_at: Date;
 
-  @OneToOne(() => ProfileUser)
-  @JoinColumn()
-  profile: ProfileUser;
-
-  @OneToMany(() => Order, (post) => post.user)
-  orders: Order[];
+  @ManyToOne(() => User, (user) => user.orders)
+  user: User
 }
