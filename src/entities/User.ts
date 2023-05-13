@@ -24,6 +24,9 @@ export class User {
   @CreateDateColumn()
   created_at: Date;
 
+  @Column({ default: 'user' })
+  role: string;
+
   @OneToOne(() => ProfileUser)
   @JoinColumn()
   profile: ProfileUser;

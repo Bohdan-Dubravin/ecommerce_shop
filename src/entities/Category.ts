@@ -1,16 +1,11 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
-  JoinColumn,
   JoinTable,
   ManyToMany,
-  ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ProfileUser } from './ProfileUser';
-import { User } from './User';
+
 import { Product } from './Product';
 
 @Entity({ name: 'categories' })

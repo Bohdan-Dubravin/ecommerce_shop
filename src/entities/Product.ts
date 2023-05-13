@@ -2,15 +2,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
   JoinTable,
   ManyToMany,
-  ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ProfileUser } from './ProfileUser';
-import { User } from './User';
+
 import { Category } from './Category';
 
 @Entity({ name: 'products' })
@@ -26,6 +22,18 @@ export class Product {
 
   @Column({ type: 'float' })
   price: number;
+
+  @Column({ type: 'float' })
+  discount?: number;
+
+  @Column()
+  size?: string;
+
+  @Column({ default: 'No brand' })
+  brand?: string;
+
+  @CreateDateColumn()
+  created_at: Date;
 
   @Column('text', { array: true })
   imagesUrl?: string[];
