@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { ProfileUser } from './ProfileUser';
 import { Order } from './Order';
+import { RefreshToken } from './RefreshToken';
 
 @Entity({ name: 'users' })
 export class User {
@@ -33,4 +34,7 @@ export class User {
 
   @OneToMany(() => Order, (post) => post.user)
   orders: Order[];
+
+  @OneToMany(() => RefreshToken, (token) => token.user)
+  refreshTokens: RefreshToken[];
 }
