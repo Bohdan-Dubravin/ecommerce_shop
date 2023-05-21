@@ -35,6 +35,6 @@ export class User {
   @OneToMany(() => Order, (post) => post.user)
   orders: Order[];
 
-  @OneToMany(() => RefreshToken, (token) => token.user)
+  @OneToMany(() => RefreshToken, (token) => token.user, { cascade: true })
   refreshTokens: RefreshToken[];
 }

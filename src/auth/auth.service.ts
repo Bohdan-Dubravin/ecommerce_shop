@@ -51,12 +51,30 @@ export class AuthService {
     return { ...tokens, ...existUser };
   }
 
+  async logout(userId: string, refreshToken: string) {
+    const oldToken = await this.refreshTokenRepository.findOneBy({
+      refreshToken,
+    });
+    // this.refreshTokenRepository
+    //   .createQueryBuilder('users')
+    //   .delete()
+    //   .from(User)
+    //   .where('id = :id', { id: 1 })
+    //   .execute();
+
+    if (!oldToken) {
+      return { message: 'Logout succesfully' };
+    }
+
+    await this.refreshTokenRepository.remove(oldToken);
+    return { message: 'Logout succesfully' };
+  }
+
   async refreshTokens(userId: string, refreshToken: string) {
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: { refreshTokens: true },
     });
-    console.log(user);
 
     if (!user) {
       throw new ForbiddenException('Access denied');
@@ -113,19 +131,16 @@ export class AuthService {
 
     await this.refreshTokenRepository.save(newRefToken);
 
-    // await this.refreshTokenRepository.delete({ refreshToken });
-
     const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-    // await this.prisma.refreshToken.deleteMany({
-    //   where:  { createdAt: { lt: thirtyDaysAgo } },
-    // });
-    // const tokensToDelete = this.refreshTokenRepository
-    //   .createQueryBuilder('e')
-    //   .delete()
-    //   .where('');
 
-    // await this.prisma.refreshToken.deleteMany({
-    //   where: { OR: [{ createdAt: { lt: thirtyDaysAgo }, refreshToken }] },
-    // });
+    await this.refreshTokenRepository
+      .createQueryBuilder()
+      .delete()
+      .from('refresh_tokens')
+      .where('created_at < :date', {
+        date: thirtyDaysAgo,
+      })
+      // .orWhere('refreshToken =:refreshToken', { refreshToken })
+      .execute();
   }
 }

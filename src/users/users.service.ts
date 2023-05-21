@@ -1,7 +1,8 @@
 import {
   Injectable,
   NotFoundException,
-  BadRequestException,
+  ConflictException,
+  ForbiddenException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities/User';
@@ -9,7 +10,7 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { CreateUserProfileDto } from './dto/createuUserProfile.dto';
-import { ProfileUser } from 'src/entities/ProfileUser';
+import { ProfileUser } from '../entities/ProfileUser';
 
 @Injectable()
 export class UsersService {
@@ -24,7 +25,7 @@ export class UsersService {
       email: dto.email,
     });
     if (isExist) {
-      throw new BadRequestException('Email already taken');
+      throw new ForbiddenException('Email already taken');
     }
     const newUser = this.userRepository.create({ ...dto });
 

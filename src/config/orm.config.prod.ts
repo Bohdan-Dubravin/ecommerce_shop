@@ -1,7 +1,6 @@
 import { registerAs } from '@nestjs/config';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-
 export default registerAs(
   'orm.config',
   (): TypeOrmModuleOptions => ({
@@ -13,6 +12,6 @@ export default registerAs(
     database: process.env.DB_NAME,
     entities: [],
     synchronize: false,
-    dropSchema: Boolean(parseInt(process.env.DB_DROP_SCHEMA))
-  })
+    dropSchema: false,
+  }),
 );
