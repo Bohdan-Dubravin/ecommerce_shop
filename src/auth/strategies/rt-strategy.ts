@@ -7,14 +7,14 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 export class RtStrategy extends PassportStrategy(Strategy, 'jwt-refresh') {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromBodyField('refreshToken'),
+      jwtFromRequest: ExtractJwt.fromUrlQueryParameter('refreshToken'),
       secretOrKey: 'refresh',
       passReqToCallback: true,
     });
   }
 
   validate(req: Request, payload: any) {
-    const refreshToken = req.body.refreshToken;
+    const refreshToken = req.query.refreshToken;
 
     if (!refreshToken) throw new ForbiddenException('Refresh token expired');
 

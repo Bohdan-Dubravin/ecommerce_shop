@@ -63,7 +63,7 @@ describe('AppController (e2e)', () => {
     it('should send new pair of tokens', async () => {
       const response = await request(app.getHttpServer())
         .post('/auth/refreshTokens')
-        .send({ refreshToken })
+        .query({ refreshToken })
         .expect(200);
       expect(response.body).toHaveProperty('accessToken');
       expect(response.body).toHaveProperty('refreshToken');
@@ -72,7 +72,7 @@ describe('AppController (e2e)', () => {
     it('should logout current user', async () => {
       const response = await request(app.getHttpServer())
         .post('/auth/logout')
-        .send({ accessToken })
+        .query({ accessToken })
         .expect(200);
       expect(response.body).toHaveProperty('message');
     });
