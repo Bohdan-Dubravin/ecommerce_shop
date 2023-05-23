@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { User } from './../src/entities/User';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -49,6 +48,8 @@ describe('AppController (e2e)', () => {
         .post('/auth/login')
         .send({ email: 'test@gmail.com', password: '123456test' })
         .expect(200);
+      expect(response.body).toHaveProperty('accessToken');
+      expect(response.body).toHaveProperty('refreshToken');
       accessToken = response.body.accessToken;
       refreshToken = response.body.refreshToken;
     });
@@ -62,7 +63,7 @@ describe('AppController (e2e)', () => {
 
     it('should send new pair of tokens', async () => {
       const response = await request(app.getHttpServer())
-        .post('/auth/refreshTokens')
+        .get('/auth/refreshTokens')
         .query({ refreshToken })
         .expect(200);
       expect(response.body).toHaveProperty('accessToken');
@@ -71,7 +72,7 @@ describe('AppController (e2e)', () => {
 
     it('should logout current user', async () => {
       const response = await request(app.getHttpServer())
-        .post('/auth/logout')
+        .get('/auth/logout')
         .query({ accessToken })
         .expect(200);
       expect(response.body).toHaveProperty('message');

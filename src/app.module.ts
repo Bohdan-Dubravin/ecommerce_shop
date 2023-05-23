@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
 import ormConfig from './config/orm.config';
 import { ConfigModule } from '@nestjs/config';
@@ -23,7 +22,7 @@ import ormConfigProd from './config/orm.config.prod';
     AuthModule,
     UsersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

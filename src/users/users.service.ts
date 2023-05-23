@@ -1,7 +1,6 @@
 import {
   Injectable,
   NotFoundException,
-  ConflictException,
   ForbiddenException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,6 +10,7 @@ import { CreateUserDto } from './dto/createUser.dto';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { CreateUserProfileDto } from './dto/createuUserProfile.dto';
 import { ProfileUser } from '../entities/ProfileUser';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -27,7 +27,12 @@ export class UsersService {
     if (isExist) {
       throw new ForbiddenException('Email already taken');
     }
-    const newUser = this.userRepository.create({ ...dto });
+
+    const hashedPassword = await bcrypt.hash(dto.password, 10);
+    const newUser = this.userRepository.create({
+      ...dto,
+      password: hashedPassword,
+    });
 
     return this.userRepository.save(newUser);
   }

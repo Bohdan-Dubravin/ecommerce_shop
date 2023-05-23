@@ -11,6 +11,8 @@ import { User } from '../entities/User';
 import { Repository } from 'typeorm';
 import { RefreshToken } from '../entities/RefreshToken';
 import { LoginDto } from './dto/login.dto';
+import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -37,12 +39,14 @@ export class AuthService {
     if (!existUser) {
       throw new ForbiddenException('Email or password is wrong');
     }
+    const passwordMatch = await bcrypt.compare(
+      dto.password,
+      existUser.password,
+    );
 
-    // const passwordMatch = await argon.verify(existUser.password, dto.password);
-
-    // if (!passwordMatch) {
-    //   throw new ForbiddenException('Email or password is wrong');
-    // }
+    if (!passwordMatch) {
+      throw new ForbiddenException('Email or password is wrong');
+    }
 
     const tokens = await this.signTokens(existUser.id, existUser.email);
 
