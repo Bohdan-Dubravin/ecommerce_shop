@@ -47,6 +47,16 @@ export class UsersService {
     return users;
   }
 
+  async getUserById(id: string) {
+    const user = await this.userRepository.findOneBy({ id });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return user;
+  }
+
   async updateUser(userId: string, userDto: UpdateUserDto) {
     const updatedUser = await this.userRepository.findOneBy({
       id: userId,

@@ -12,6 +12,7 @@ import { CreateUserDto } from './dto/createUser.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { CreateUserProfileDto } from './dto/createuUserProfile.dto';
+import { Auth } from '../auth/decorators/auth.decorator';
 
 @Controller('users')
 export class UsersController {
@@ -21,10 +22,15 @@ export class UsersController {
   createUser(@Body() userDto: CreateUserDto) {
     return this.userService.createUser(userDto);
   }
-
+  @Auth()
   @Get()
   getAllUsers() {
     return this.userService.findAllUsers();
+  }
+
+  @Get(':id')
+  getUserById(@Param('id') userId: string) {
+    return this.userService.getUserById(userId);
   }
 
   @Patch(':id')

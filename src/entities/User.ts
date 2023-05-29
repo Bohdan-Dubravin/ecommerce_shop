@@ -30,10 +30,10 @@ export class User {
 
   @OneToOne(() => ProfileUser)
   @JoinColumn()
-  profile: ProfileUser;
+  profile?: ProfileUser;
 
   @OneToMany(() => Order, (post) => post.user)
-  orders: Order[];
+  orders?: Order[];
 
   @OneToMany(() => RefreshToken, (token) => token.user, { cascade: true })
   refreshTokens: RefreshToken[];
