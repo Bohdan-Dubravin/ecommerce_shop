@@ -28,7 +28,7 @@ describe('UsersController', () => {
         { provide: Auth, useValue: jest.fn().mockImplementation(() => true) },
         {
           provide: UsersService,
-          useValue: jest.fn().mockImplementation(() => mockUserService),
+          useValue: mockUserService,
         },
       ],
     }).compile();
