@@ -37,7 +37,7 @@ export class UsersService {
     return this.userRepository.save(newUser);
   }
 
-  async findAllUsers() {
+  async getAllUsers() {
     const users = await this.userRepository.find();
 
     if (!users) {

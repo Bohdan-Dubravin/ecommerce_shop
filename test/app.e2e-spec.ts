@@ -30,10 +30,12 @@ describe('AppController (e2e)', () => {
       expect(response.body).toMatchObject({
         email: 'test@gmail.com',
         role: 'user',
+        accessToken: expect.any(String),
+        refreshToken: expect.any(String),
       });
 
       expect(response.body).not.toHaveProperty('password');
-      expect(response.body).toHaveProperty('accessToken');
+      // expect(response.body).toHaveProperty('accessToken');
     });
 
     it('should throw error email already exist', () => {

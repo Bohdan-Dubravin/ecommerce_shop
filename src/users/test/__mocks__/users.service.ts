@@ -1,4 +1,4 @@
-import userStub from '../test/stubs/user.stub';
+import userStub from '../stubs/user.stub';
 
 const usersService = {
   createUser: jest.fn().mockReturnValue(userStub()),
