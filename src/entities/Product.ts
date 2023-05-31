@@ -38,6 +38,9 @@ export class Product {
   @Column('text', { array: true })
   imagesUrl?: string[];
 
+  @Column('text')
+  count_left?: number;
+
   @ManyToMany(() => Category)
   @JoinTable({ name: 'category_products' })
   products: Category[];

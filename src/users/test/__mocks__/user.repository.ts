@@ -7,6 +7,11 @@ const mockUserRepository = {
       ...user,
     }),
   ),
-  findOneBy: jest.fn().mockImplementation((id) => false),
+  findOneBy: jest
+    .fn()
+    .mockImplementationOnce((x) => {
+      x;
+    })
+    .mockImplementationOnce((x) => true),
 };
 export default mockUserRepository;

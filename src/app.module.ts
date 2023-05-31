@@ -5,7 +5,9 @@ import ormConfig from './config/orm.config';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { ProductModule } from './product/product.module';
+import { ProductModule } from './modules/product/product.module';
+import { OrderModule } from './modules/order/order.module';
+import { CategoryModule } from './modules/category/category.module';
 import ormConfigProd from './config/orm.config.prod';
 
 @Module({
@@ -23,6 +25,8 @@ import ormConfigProd from './config/orm.config.prod';
     AuthModule,
     UsersModule,
     ProductModule,
+    OrderModule,
+    CategoryModule,
   ],
   controllers: [],
   providers: [],
