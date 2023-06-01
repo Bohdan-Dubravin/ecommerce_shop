@@ -52,4 +52,17 @@ export class CategoryService {
 
     return this.categoryRepository.save({ ...updatedCategory, ...dto });
   }
+
+  async getCategoryWithProducts(categoryId: string) {
+    const categoryProducts = await this.categoryRepository.findOne({
+      where: { id: categoryId },
+      relations: { products: true },
+    });
+
+    if (!categoryProducts) {
+      throw new NotFoundException("Category don't have products");
+    }
+
+    return categoryProducts;
+  }
 }

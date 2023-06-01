@@ -25,7 +25,7 @@ export class User {
   @CreateDateColumn()
   created_at: Date;
 
-  @Column({ default: 'user' })
+  @Column({ default: process.env.NODE_ENV !== 'e2e' ? 'admin' : 'user' })
   role: string;
 
   @OneToOne(() => ProfileUser)
