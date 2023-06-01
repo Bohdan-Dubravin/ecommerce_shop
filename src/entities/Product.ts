@@ -26,9 +26,6 @@ export class Product {
   @Column({ type: 'float' })
   discount?: number;
 
-  @Column()
-  size?: string;
-
   @Column({ default: 'No brand' })
   brand?: string;
 

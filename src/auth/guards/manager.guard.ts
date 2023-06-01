@@ -13,7 +13,7 @@ export class MangerGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<{ user: User }>();
     const user = request.user;
 
-    if (Boolean(user.role === 'manager' || user.role === 'admin')) {
+    if (Boolean(user.role === 'manager') || Boolean(user.role === 'admin')) {
       throw new ForbiddenException('Manager right required!');
     }
     return true;

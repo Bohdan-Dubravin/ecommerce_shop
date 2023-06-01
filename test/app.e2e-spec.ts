@@ -29,7 +29,7 @@ describe('AppController (e2e)', () => {
         .expect(201);
       expect(response.body).toMatchObject({
         email: 'test@gmail.com',
-        role: 'user',
+        role: 'admin',
         accessToken: expect.any(String),
         refreshToken: expect.any(String),
       });

@@ -12,7 +12,7 @@ export class CreateCategoryDto {
     description: 'unique title',
     nullable: false,
   })
-  @IsEmail()
+  @IsString()
   @IsNotEmpty()
   @MinLength(3)
   title: string;

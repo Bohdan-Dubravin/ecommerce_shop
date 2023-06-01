@@ -16,8 +16,8 @@ export class Category {
   @Column({ unique: true })
   title: string;
 
-  @Column()
-  description: string;
+  @Column({ nullable: true })
+  description?: string;
 
   @ManyToMany(() => Product)
   @JoinTable({ name: 'category_products' })

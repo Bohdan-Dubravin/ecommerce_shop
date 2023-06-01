@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Category } from 'src/entities/Category';
+import { Category } from '../../entities/Category';
 import { Repository } from 'typeorm';
 import { CreateCategoryDto } from './dto/createCategory.dto';
 
@@ -34,7 +34,7 @@ export class CategoryService {
   async getAllCategories() {
     const categories = await this.categoryRepository.find();
 
-    if (!categories) {
+    if (!categories.length) {
       throw new NotFoundException('Categories have not been created');
     }
 
