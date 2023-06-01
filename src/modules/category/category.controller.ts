@@ -10,7 +10,6 @@ import {
 import { Auth } from '../../auth/decorators/auth.decorator';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/createCategory.dto';
-import { GetCurrentUser } from '../../auth/decorators';
 
 @Controller('category')
 export class CategoryController {
