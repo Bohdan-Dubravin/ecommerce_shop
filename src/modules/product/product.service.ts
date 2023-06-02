@@ -7,19 +7,19 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from '../../entities/Category';
 import { Repository } from 'typeorm';
 import { Product } from '../../entities/Product';
-import { CreateProductDto } from './dto/createCategory.dto';
+import { CreateProductDto } from './dto/createProduct.dto';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(Category)
-    private categoryRepository: Repository<Category>,
-    @InjectRepository(Product)
     private productRepository: Repository<Product>,
+    @InjectRepository(Product)
+    private categoryRepository: Repository<Category>,
   ) {}
 
   async createProduct(dto: CreateProductDto) {
-    const existProduct = await this.categoryRepository.findOneBy({
+    const existProduct = await this.productRepository.findOneBy({
       title: dto.title,
     });
 
@@ -27,15 +27,17 @@ export class ProductService {
       throw new ForbiddenException('Category already exist');
     }
 
-    const newCategory = this.categoryRepository.create({
+    const newCategory = this.productRepository.create({
       ...dto,
     });
 
-    return this.categoryRepository.save(newCategory);
+    return this.productRepository.save(newCategory);
   }
 
   async getAllProducts() {
-    const products = await this.categoryRepository.find();
+    const products = await this.productRepository.find({
+      relations: { variants: true },
+    });
 
     if (!products.length) {
       throw new NotFoundException('Categories have not been created');
@@ -45,7 +47,7 @@ export class ProductService {
   }
 
   async updateProduct(categoryId: string, dto) {
-    const updatedProduct = await this.categoryRepository.findOneBy({
+    const updatedProduct = await this.productRepository.findOneBy({
       id: categoryId,
     });
 
@@ -53,6 +55,6 @@ export class ProductService {
       throw new NotFoundException('Category not found');
     }
 
-    return this.categoryRepository.save({ ...updatedProduct, ...dto });
+    return this.productRepository.save({ ...updatedProduct, ...dto });
   }
 }
