@@ -8,6 +8,7 @@ import { Product } from '../entities/Product';
 import { Payment } from '../entities/Payment';
 import { OrderItem } from '../entities/OrderItem';
 import { RefreshToken } from '../entities/RefreshToken';
+import { ProductVariant } from '../entities/ProductVariant';
 
 export default registerAs(
   'orm.config',
@@ -28,10 +29,10 @@ export default registerAs(
       Order,
       Category,
       Product,
-      Order,
       Payment,
       OrderItem,
       RefreshToken,
+      ProductVariant,
     ],
     synchronize: true,
     dropSchema: Boolean(parseInt(process.env.DB_DROP_SCHEMA)),

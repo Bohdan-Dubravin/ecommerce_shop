@@ -4,10 +4,12 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Category } from './Category';
+import { ProductVariant } from './ProductVariant';
 
 @Entity({ name: 'products' })
 export class Product {
@@ -20,23 +22,28 @@ export class Product {
   @Column()
   description: string;
 
-  @Column({ type: 'float' })
-  price: number;
-
-  @Column({ type: 'float' })
-  discount?: number;
-
   @Column({ default: 'No brand' })
   brand?: string;
 
   @CreateDateColumn()
   created_at: Date;
 
+  // @Column({ type: 'float' })
+  // price: number;
+
+  // @Column({ type: 'float' })
+  // discount?: number;
+
+  // @Column('text')
+  // count_left?: number;
+
+  @OneToMany(() => ProductVariant, (variant) => variant.product, {
+    cascade: true,
+  })
+  variants: ProductVariant[];
+
   @Column('text', { array: true })
   imagesUrl?: string[];
-
-  @Column('text')
-  count_left?: number;
 
   @ManyToMany(() => Category)
   @JoinTable({ name: 'category_products' })
